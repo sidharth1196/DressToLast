@@ -13,6 +13,7 @@
         android:theme="@style/Theme.DressToLast"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".OnboardingActivity3"
             android:exported="false"
             android:parentActivityName=".OnboardingActivity2">
@@ -36,6 +37,8 @@
                 android:value="" />
         </activity>
         <activity
+=======
+>>>>>>> e942ea1e9f9971a2bf6e195b87aef41f34465563
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -50,11 +53,16 @@
         </activity>
         <activity
             android:name=".MainActivity"
+<<<<<<< HEAD
             android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+=======
+            android:exported="true">
+        </activity>
+>>>>>>> e942ea1e9f9971a2bf6e195b87aef41f34465563
     </application>
 
 </manifest>

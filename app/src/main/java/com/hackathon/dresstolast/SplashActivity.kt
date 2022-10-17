@@ -27,14 +27,24 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycle.coroutineScope.launch {
             delay(SPLASH_TIME)
+<<<<<<< HEAD
             val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)) {
                 Log.d("DTL", "onboarding true")
                 Intent(this@SplashActivity, OnboardingActivity::class.java)
+=======
+            val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)){
+                Log.d("DTL", "onboarding true")
+                Intent(this@SplashActivity, MainActivity::class.java)
+>>>>>>> e942ea1e9f9971a2bf6e195b87aef41f34465563
             } else {
                 editor.putBoolean(KEY_ONBOARDING_INTRO, true).apply()
                 Log.d("DTL", "onboarding false")
                 // Replace with Onboarding intro activity
+<<<<<<< HEAD
                 Intent(this@SplashActivity, OnboardingActivity::class.java)
+=======
+                Intent(this@SplashActivity, MainActivity::class.java)
+>>>>>>> e942ea1e9f9971a2bf6e195b87aef41f34465563
             }
             startActivity(intent)
             finish()
