@@ -1,4 +1,4 @@
-package com.hackathon.dresstolast
+package com.hackathon.dresstolast.ui
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.coroutineScope
+import com.hackathon.dresstolast.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
