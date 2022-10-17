@@ -36,5 +36,11 @@
         android:id="@+id/reviewQuestionsFragment"
         android:name="com.hackathon.dresstolast.ui.ReviewQuestionsFragment"
         android:label="fragment_review_questions"
-        tools:layout="@layout/fragment_review_questions" />
+        tools:layout="@layout/fragment_review_questions" >
+        <action
+            android:id="@+id/action_reviewQuestionsFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
