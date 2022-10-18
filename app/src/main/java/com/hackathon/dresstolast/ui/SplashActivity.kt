@@ -5,10 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.findNavController
 import com.hackathon.dresstolast.R
+import com.hackathon.dresstolast.ui.onboarding.ViewPagerActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+import com.hackathon.dresstolast.ui.onboarding.screens.FirstScreen
 
 class SplashActivity : AppCompatActivity() {
 
@@ -28,14 +33,17 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycle.coroutineScope.launch {
             delay(SPLASH_TIME)
+
+//            findNavController().navigate(R.id.action_splashActivity2_to_viewPagerFragment)
             val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)){
                 Log.d("DTL", "onboarding true")
                 Intent(this@SplashActivity, MainActivity::class.java)
             } else {
+
                 editor.putBoolean(KEY_ONBOARDING_INTRO, true).apply()
                 Log.d("DTL", "onboarding false")
                 // Replace with Onboarding intro activity
-                Intent(this@SplashActivity, MainActivity::class.java)
+                Intent(this@SplashActivity, ViewPagerActivity::class.java)
             }
             startActivity(intent)
             finish()
