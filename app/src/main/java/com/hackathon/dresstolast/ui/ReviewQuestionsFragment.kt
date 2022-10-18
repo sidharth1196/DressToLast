@@ -60,7 +60,7 @@ class ReviewQuestionsFragment : Fragment() {
             viewPager.currentItem = viewPager.currentItem + 1
         }
         adapter.setOnFinishClickListener {
-            // viewModel.calculateDurabilityIndex()
+            viewModel.calculateDurabilityIndex()
             val dialogFragment: AlertDialogFragment = AlertDialogFragment.newInstance()
             dialogFragment.setData(DialogMember(
                 title = "Congrats!",

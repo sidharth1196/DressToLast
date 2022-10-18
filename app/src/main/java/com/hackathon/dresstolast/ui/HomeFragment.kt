@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        parentActivity.binding.toolbarTitle.text = "Top Brands"
+        parentActivity.binding.toolbarTitle.text = "Dress To Last"
     }
 
     private fun initRecyclerView() {

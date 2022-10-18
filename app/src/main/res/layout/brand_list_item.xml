@@ -19,7 +19,8 @@
             android:layout_marginTop="8dp"
             android:hint="TextView"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppinsregular"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_priceRange"
             app:layout_constraintTop_toBottomOf="@+id/tv_priceRange" />
@@ -41,6 +42,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppinsregular"
             app:layout_constraintStart_toEndOf="@+id/iv_brandLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppinsregular"
             app:layout_constraintStart_toStartOf="@+id/tv_brand_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_brand_name" />
 
@@ -69,6 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_durability"
             app:layout_constraintStart_toStartOf="@+id/iv_durability"
             app:layout_constraintTop_toBottomOf="@+id/iv_durability" />

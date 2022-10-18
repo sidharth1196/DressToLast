@@ -1,5 +1,6 @@
 package com.hackathon.dresstolast.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,7 +35,8 @@ class MainViewModel(
         answers.values.forEach {
             sum += it
         }
-        addToBrandDurabilityIndex(sum)
+        Log.d("DTL", "sum = $sum")
+        // addToBrandDurabilityIndex(sum)
     }
 
     private fun addToBrandDurabilityIndex(sum: Int) {

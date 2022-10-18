@@ -8,8 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar">#FFFDFCFC</color>
-    <color name="button">#FFB8EAFF</color>
-    <color name="app_background">#FFE0E3E5</color>
+    <color name="button">#FF64C996</color>
+    <color name="app_background">#FFF5F5F5</color>
+    <color name="chip">#FFCAE8D9</color>
 
 
 </resources>
