@@ -14,13 +14,16 @@ class BrandAdapter(): RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
         lateinit var brand: Brand
         fun bindToView(brandItem: Brand){
             brand = brandItem
+
             binding.tvBrandName.text = brand.name
             binding.tvPriceRange.text = brand.priceRange
             binding.tvReviews.text = "${brand.reviews} reviews"
-            binding.tvDurability.text = when(brand.index) {
-                1 -> "Durable"
-                else -> "Fragile"
+            binding.tvDurability.text = when {
+                brand.durabilityIndex < 5.1 -> "Fragile"
+                brand.durabilityIndex < 8.1 -> "Reliable"
+                else -> "Durable"
             }
+            brand.imageRes?.let { binding.ivDurability.setImageResource(it) }
         }
     }
 

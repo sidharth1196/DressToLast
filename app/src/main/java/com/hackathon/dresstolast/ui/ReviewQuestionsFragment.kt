@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentReviewQuestionsBinding
-import com.hackathon.dresstolast.model.ReviewQuestions
+import com.hackathon.dresstolast.model.ReviewQuestion
+import com.hackathon.dresstolast.ui.viewModel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +22,7 @@ class ReviewQuestionsFragment : Fragment() {
     private lateinit var binding: FragmentReviewQuestionsBinding
     lateinit var parentActivity: MainActivity
     private lateinit var adapter: ReviewQuestionAdapter
+    val viewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +31,18 @@ class ReviewQuestionsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_review_questions, container, false)
         parentActivity = activity as MainActivity
+        viewModel.getAllQuestions()
         setupToolbar()
         initRecyclerView()
         initListeners()
+        initObservers()
         return binding.root
+    }
+
+    private fun initObservers() {
+        viewModel.questions.observe(viewLifecycleOwner, Observer {
+            adapter.setQuestions(it)
+        })
     }
 
     private fun initListeners() {
@@ -38,36 +50,16 @@ class ReviewQuestionsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val imgRes = resources.getIdentifier("q1", "drawable", context?.packageName)
         adapter = ReviewQuestionAdapter()
         binding.vpReviewQuestions.adapter = adapter
-        val list = mutableListOf<ReviewQuestions>(
-            ReviewQuestions(
-                1,
-                "Did you follow the care instructions?",
-                imgRes,
-                listOf("Yes", "No"),
-                true
-            ),
-            ReviewQuestions(
-                2,
-                "How old is the garment?",
-                imgRes,
-                listOf("More than 3 years", "Between 1-3 years", "Less than a year", "I don't know, the garment is second hand/vintage"),
-                false
-            )
-        )
-        list.forEach {
-            it.imageUrl
-        }
-        adapter.setQuestions(list)
-        adapter.setOnItemClickListener {
+        adapter.setOnItemClickListener { key, value ->
+            viewModel.answers[key] = value
             val viewPager = binding.vpReviewQuestions
-            if (it) {
-                viewPager.currentItem = viewPager.currentItem + 1
-            }
+            viewPager.currentItem = viewPager.currentItem + 1
         }
         adapter.setOnFinishClickListener {
+            // viewModel.calculateDurabilityIndex()
+
             findNavController().navigate(R.id.action_reviewQuestionsFragment_to_homeFragment)
         }
     }

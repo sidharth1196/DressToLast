@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentHomeBinding
 import com.hackathon.dresstolast.model.Brand
+import com.hackathon.dresstolast.ui.viewModel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -21,6 +24,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var brandAdapter: BrandAdapter
     lateinit var parentActivity: MainActivity
+    val viewModel by viewModel<MainViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +35,19 @@ class HomeFragment : Fragment() {
         initRecyclerView()
         setupToolbar()
         initListeners()
+        initObservers()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllBrands()
+    }
+
+    private fun initObservers() {
+        viewModel.brands.observe(viewLifecycleOwner, Observer {
+            brandAdapter.setBrandsList(it)
+        })
     }
 
     private fun initListeners() {
@@ -55,10 +71,5 @@ class HomeFragment : Fragment() {
                 layoutManager.orientation
             )
         )
-
-        val list = mutableListOf(Brand(1, "Levis", "$$$", 468, 1))
-        list.add(Brand(1, "Zara", "$$$", 321,1))
-        list.add(Brand(1, "Weekday", "$$$", 322, 2))
-        brandAdapter.setBrandsList(list)
     }
 }

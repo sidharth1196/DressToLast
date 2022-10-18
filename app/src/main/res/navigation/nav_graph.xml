@@ -30,6 +30,8 @@
         tools:layout="@layout/fragment_camera_result" >
         <action
             android:id="@+id/action_cameraResultFragment_to_reviewQuestionsFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/reviewQuestionsFragment" />
     </fragment>
     <fragment

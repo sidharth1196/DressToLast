@@ -9,33 +9,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.ReviewQuestionItemBinding
-import com.hackathon.dresstolast.model.ReviewQuestions
+import com.hackathon.dresstolast.model.ReviewQuestion
 
 class ReviewQuestionAdapter(): RecyclerView.Adapter<ReviewQuestionAdapter.ReviewQuestionViewHolder>() {
-    private var questionList: List<ReviewQuestions> = listOf()
-    private var onItemClickListener: ((Boolean) -> Unit)? = null
-    private var onFinishClickListener: (() -> Unit)? = null
+    private var questionList: List<ReviewQuestion> = listOf()
+    private var onItemClickListener: ((String, Int) -> Unit)? = null
+    private var onFinishClickListener: ((List<String>) -> Unit)? = null
 
     inner class  ReviewQuestionViewHolder(private val binding: ReviewQuestionItemBinding): RecyclerView.ViewHolder(binding.root) {
-        lateinit var questions: ReviewQuestions
-        fun bindToView(questions: ReviewQuestions) {
+        lateinit var questions: ReviewQuestion
+        fun bindToView(questions: ReviewQuestion) {
             binding.tvQuestion.text = questions.question
-            binding.ivQuestion.setImageResource(questions.imageUrl)
+            questions.imageRes?.let { binding.ivQuestion.setImageResource(it) }
+            binding.chipGroup.isSingleSelection = questions.isSingleAnswer
             binding.tvQuestionGuide.text = when(questions.isSingleAnswer) {
                 true -> "Select One"
                 else -> "Select One or Multiple"
             }
-            questions.options.forEach {
-                val c = LayoutInflater.from(binding.root.context).inflate(R.layout.choice_chip, binding.chipGroup, false) as Chip
-                val chip = Chip(binding.root.context)
-                chip.text = it
-                c.text = it
-                c.setOnClickListener {
-                    onItemClickListener?.invoke(questions.isSingleAnswer)
+            questions.options.forEach { option->
+                val chip = LayoutInflater.from(binding.root.context).inflate(R.layout.choice_chip, binding.chipGroup, false) as Chip
+                chip.text = option.label
+                chip.setOnClickListener {
+                    if (questions.isSingleAnswer) {
+                        if (binding.chipGroup.checkedChipIds.isNotEmpty()) {
+                            onItemClickListener?.invoke(questions.imageUrl, option.value)
+                        }
+                    }
                 }
-                binding.chipGroup.addView(c)
+                binding.chipGroup.addView(chip)
             }
-            binding.chipGroup.isSingleSelection = questions.isSingleAnswer
             binding.btnFinish.visibility = if (questions.isSingleAnswer) {
                 View.GONE
             } else {
@@ -43,7 +45,12 @@ class ReviewQuestionAdapter(): RecyclerView.Adapter<ReviewQuestionAdapter.Review
             }
             if (!questions.isSingleAnswer) {
                 binding.btnFinish.setOnClickListener {
-                    onFinishClickListener?.invoke()
+                    val list = mutableListOf<String>()
+                    binding.chipGroup.checkedChipIds.forEach {
+                        val chip = binding.chipGroup.findViewById<Chip>(it)
+                        list.add(chip.text.toString())
+                    }
+                    onFinishClickListener?.invoke(list)
                 }
             }
         }
@@ -63,16 +70,16 @@ class ReviewQuestionAdapter(): RecyclerView.Adapter<ReviewQuestionAdapter.Review
         return questionList.size
     }
 
-    fun setQuestions(list: List<ReviewQuestions>) {
+    fun setQuestions(list: List<ReviewQuestion>) {
         questionList = list
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(onItemClickListener: ((Boolean) -> Unit)?) {
+    fun setOnItemClickListener(onItemClickListener: ((String, Int) -> Unit)?) {
         this.onItemClickListener = onItemClickListener
     }
 
-    fun setOnFinishClickListener(onFinishClickListener: (() -> Unit)?) {
+    fun setOnFinishClickListener(onFinishClickListener: ((List<String>) -> Unit)?) {
         this.onFinishClickListener = onFinishClickListener
     }
 
