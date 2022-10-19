@@ -35,6 +35,8 @@ class CameraResultFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_camera_result, container, false)
         parentActivity = activity as MainActivity
+        parentActivity = activity as MainActivity
+        parentActivity.setToolbarVisibility(View.GONE)
         setupToolbar()
         initListeners()
         initObservers()
@@ -81,7 +83,7 @@ class CameraResultFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.btnNext.setOnClickListener {
+        binding.btnYes.setOnClickListener {
             findNavController().navigate(R.id.action_cameraResultFragment_to_reviewQuestionsFragment)
         }
     }

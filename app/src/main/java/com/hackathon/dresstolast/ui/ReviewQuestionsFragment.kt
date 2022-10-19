@@ -36,6 +36,8 @@ class ReviewQuestionsFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_review_questions, container, false)
         parentActivity = activity as MainActivity
+        parentActivity = activity as MainActivity
+        parentActivity.setToolbarVisibility(View.GONE)
         viewModel.getAllQuestions()
         setupToolbar()
         initRecyclerView()

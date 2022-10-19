@@ -21,6 +21,7 @@ class MainViewModel(
     val questions = MutableLiveData<List<ReviewQuestion>>()
     val brands = MutableLiveData<List<Brand>>()
     val answers: MutableMap<String, Int> = mutableMapOf()
+    val currentUser = MutableLiveData<UserProfile>()
     private val auth: FirebaseAuth = Firebase.auth
 
     fun getAllQuestions() {
@@ -50,9 +51,22 @@ class MainViewModel(
             value?.let {
                 val index = (it.durabilityIndex * it.reviews + sum) / (it.reviews + 1)
                 dataRepository.updateBrandDetailsById(it.reviews+1, index, it.id)
+                updateFirestoreDb(it.reviews+1, index, it.docId)
                 Log.d("DTL", "review added")
             }
         }
+    }
+
+    private fun updateFirestoreDb(reviews: Int, index: Double, docId: String) {
+        val dbCollection = FirebaseFirestore.getInstance().collection("brands")
+        dbCollection.document(docId)
+            .update(hashMapOf("reviews" to reviews, "durabilityIndex" to index) as Map<String, Any>)
+            .addOnSuccessListener {
+                Log.d("DTL", "durability index and reviews updated")
+            }
+            .addOnFailureListener {
+                Log.d("DTL", "update failed")
+            }
     }
 
     fun calculateDurability(score: Double): String {
@@ -110,6 +124,15 @@ class MainViewModel(
                     .addOnCompleteListener {
                         Log.d("DTL", "Firebase User record updated with id")
                     }
+            }
+    }
+
+    fun getCurrentUserDetails() {
+        FirebaseFirestore.getInstance().collection("users")
+            .whereEqualTo("userId", auth.currentUser?.uid)
+            .get()
+            .addOnSuccessListener { docs ->
+                currentUser.postValue(docs.first().toObject(UserProfile::class.java))
             }
     }
 }

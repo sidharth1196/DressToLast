@@ -18,4 +18,9 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setLogo(R.drawable.app_logo)
         // window.statusBarColor = ContextCompat.getColor(this, R.color.app_background)
     }
+
+
+    fun setToolbarVisibility(visibility: Int) {
+        binding.appBarLayout.visibility = visibility
+    }
 }

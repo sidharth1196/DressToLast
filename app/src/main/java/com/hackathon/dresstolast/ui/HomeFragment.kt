@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         parentActivity = activity as MainActivity
+        parentActivity.setToolbarVisibility(View.VISIBLE)
         searchView = binding.svBrand
         initRecyclerView()
         setupToolbar()

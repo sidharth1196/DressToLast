@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.model.Brand
@@ -34,7 +37,6 @@ class SplashActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.app_background)
         val sharedPreference = getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-
         lifecycle.coroutineScope.launch {
             delay(SPLASH_TIME)
             fetchData()
@@ -55,13 +57,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun fetchData() {
         saveReviewQuestionsToDb(viewModel.RQList)
-        saveBrandsToDB(viewModel.BrandList)
-    }
-
-    private fun saveBrandsToDB(brandList: List<Brand>) {
-        brandList.forEach {
-            viewModel.insertBrands(it)
-        }
+        viewModel.fetchAllBrands()
     }
 
     private fun saveReviewQuestionsToDb(reviewQuestions: List<ReviewQuestion>) {

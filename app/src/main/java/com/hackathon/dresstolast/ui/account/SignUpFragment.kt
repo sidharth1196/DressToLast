@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentSignUpBinding
+import com.hackathon.dresstolast.ui.MainActivity
 import com.hackathon.dresstolast.ui.viewModel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     val viewModel by viewModel<MainViewModel>()
+    lateinit var parentActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +28,8 @@ class SignUpFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
+        parentActivity = activity as MainActivity
+        parentActivity.setToolbarVisibility(View.GONE)
         initListeners()
         return binding.root
     }
@@ -41,5 +45,7 @@ class SignUpFragment : Fragment() {
             }
         }
     }
+
+
 
 }

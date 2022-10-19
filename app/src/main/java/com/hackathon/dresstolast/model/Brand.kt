@@ -6,11 +6,12 @@ import androidx.room.PrimaryKey
 @Entity
 data class Brand(
     @PrimaryKey
-    val id: Int = 0,
-    val name: String,
-    val priceRange: String,
-    val reviews: Int,
-    val durabilityIndex: Double,
-    val commonIssues: ArrayList<String>? = null,
-    var imageRes: Int? = null
+    var id: Int = 0,
+    var name: String = "",
+    var priceRange: String = "",
+    var reviews: Int = 0,
+    var durabilityIndex: Double = 0.0,
+    var commonIssues: ArrayList<String>? = null,
+    var imageRes: Int? = null,
+    var docId: String = ""
 )
