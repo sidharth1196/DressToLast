@@ -10,11 +10,15 @@ import androidx.fragment.app.DialogFragment
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentAlertDialogBinding
 import com.hackathon.dresstolast.model.DialogMember
+import com.hackathon.dresstolast.ui.viewModel.AlertDialogViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class AlertDialogFragment: DialogFragment() {
 
     private var dialogMember: DialogMember? = null
     private lateinit var binding: FragmentAlertDialogBinding
+    val viewModel by viewModel<AlertDialogViewModel>()
 
     companion object {
         fun newInstance() = AlertDialogFragment()
@@ -30,15 +34,45 @@ class AlertDialogFragment: DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_alert_dialog, container, false)
+        dialogMember?.brand?.name?.let { viewModel.getBrandByID(it) }
         dialogMember?.apply {
             binding.tvTitle.text = title
             binding.tvBody.text = body
             binding.btnNegative.text = buttonNegativeText
             binding.btnPositive.text = buttonPositiveText
+            reviewSum?.let {
+                val durability = calculateDurability(it.toDouble())
+                binding.tvIndex.text = durability.capitalize()
+                val imageRes = resources.getIdentifier("index_$durability", "drawable", context?.packageName)
+                binding.ivIndex.setImageResource(imageRes)
+            }
             dialog?.setCancelable(cancellable)
         }
         intiListeners()
+        initObservers()
         return binding.root
+    }
+
+    private fun initObservers() {
+        viewModel.brand.observe(viewLifecycleOwner, androidx.lifecycle.Observer { it ->
+            it?.let { brand ->
+                binding.tvBrand.text = brand.name
+                binding.tvBrandReviews.text = brand.reviews.toString()
+                val durability = calculateDurability(brand.durabilityIndex)
+                binding.tvBrandIndex.text = durability.capitalize()
+                val imageRes =
+                    resources.getIdentifier("index_$durability", "drawable", context?.packageName)
+                binding.ivBrandIndex.setImageResource(imageRes)
+            }
+        })
+    }
+
+    private fun calculateDurability(score: Double): String {
+        return when {
+            score < 5.1 -> "fragile"
+            score < 8.1 -> "reliable"
+            else -> "durable"
+        }
     }
 
     private fun intiListeners() {

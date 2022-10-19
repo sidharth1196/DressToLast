@@ -80,4 +80,8 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation 'com.google.code.gson:gson:2.8.9'
+
+    // ML Kit - Text Recognition
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-common:18.0.0'
 }

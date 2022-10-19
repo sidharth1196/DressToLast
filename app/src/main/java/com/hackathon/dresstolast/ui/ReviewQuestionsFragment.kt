@@ -11,9 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentReviewQuestionsBinding
 import com.hackathon.dresstolast.model.DialogMember
-import com.hackathon.dresstolast.model.ReviewQuestion
+import com.hackathon.dresstolast.ui.viewModel.CameraViewModel
 import com.hackathon.dresstolast.ui.viewModel.MainViewModel
 import com.hackathon.dresstolast.ui.widget.AlertDialogFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -25,6 +26,7 @@ class ReviewQuestionsFragment : Fragment() {
     lateinit var parentActivity: MainActivity
     private lateinit var adapter: ReviewQuestionAdapter
     val viewModel by viewModel<MainViewModel>()
+    private val cameraViewModel by sharedViewModel<CameraViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,23 +62,24 @@ class ReviewQuestionsFragment : Fragment() {
             viewPager.currentItem = viewPager.currentItem + 1
         }
         adapter.setOnFinishClickListener {
-            viewModel.calculateDurabilityIndex()
+            val reviewSum = viewModel.calculateDurabilityIndex(cameraViewModel.brand.value)
             val dialogFragment: AlertDialogFragment = AlertDialogFragment.newInstance()
             dialogFragment.setData(DialogMember(
                 title = "Congrats!",
-                body = "30 review points + 10% discount voucher!\n" +
-                        "You have just finished your first durability review and your answers will " +
-                        "count towards the brand’s durability score. Sign up to received your points" +
-                        " and discount voucher!",
+                body = "You have just finished another durability review and your answers " +
+                        "will count towards the brand’s durability score. " +
+                        "Go to My account to receive your points!",
                 cancellable = false,
                 buttonPositiveText = "Sign Up",
-                buttonNegativeText = "Back to Top Brands",
+                buttonNegativeText = "See Brand Details",
                 lambdaNo = {
                     findNavController().navigate(R.id.action_reviewQuestionsFragment_to_homeFragment)
                 },
                 lambdaYes = {
 
-                }
+                },
+                brand = cameraViewModel.brand.value,
+                reviewSum = reviewSum
             ))
             dialogFragment.show(parentFragmentManager, AlertDialogFragment::class.java.simpleName)
         }

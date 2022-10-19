@@ -60,12 +60,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun saveBrandsToDB(brandList: List<Brand>) {
         brandList.forEach {
-            val imageUrl = when {
-                it.durabilityIndex < 5.1 -> "index_fragile"
-                it.durabilityIndex < 8.1 -> "index_reliable"
-                else -> "index_durable"
-            }
-            it.imageRes = resources.getIdentifier(imageUrl, "drawable", baseContext.packageName)
             viewModel.insertBrands(it)
         }
     }

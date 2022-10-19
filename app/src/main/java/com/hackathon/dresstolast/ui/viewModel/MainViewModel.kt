@@ -16,7 +16,6 @@ class MainViewModel(
     val questions = MutableLiveData<List<ReviewQuestion>>()
     val brands = MutableLiveData<List<Brand>>()
     val answers: MutableMap<String, Int> = mutableMapOf()
-    val brand: String = ""
 
     fun getAllQuestions() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,23 +29,31 @@ class MainViewModel(
         }
     }
 
-    fun calculateDurabilityIndex() {
+    fun calculateDurabilityIndex(value: Brand?): Int {
         var sum = 0
         answers.values.forEach {
             sum += it
         }
         Log.d("DTL", "sum = $sum")
-        // addToBrandDurabilityIndex(sum)
+        addToBrandDurabilityIndex(sum, value)
+        return sum
     }
 
-    private fun addToBrandDurabilityIndex(sum: Int) {
+    private fun addToBrandDurabilityIndex(sum: Int, value: Brand?) {
         viewModelScope.launch(Dispatchers.IO) {
-            val brand = dataRepository.getBrandByName(brand)
-            brand?.let {
+            value?.let {
                 val index = (it.durabilityIndex * it.reviews + sum) / (it.reviews + 1)
                 dataRepository.updateBrandDetailsById(it.reviews+1, index, it.id)
+                Log.d("DTL", "review added")
             }
+        }
+    }
 
+    fun calculateDurability(score: Double): String {
+        return when {
+            score < 5.1 -> "fragile"
+            score < 8.1 -> "reliable"
+            else -> "durable"
         }
     }
 }

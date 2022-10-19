@@ -75,6 +75,14 @@ class HomeFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.brands.observe(viewLifecycleOwner, Observer {
+            it.forEach {
+                val imageUrl = when {
+                    it.durabilityIndex < 5.1 -> "index_fragile"
+                    it.durabilityIndex < 8.1 -> "index_reliable"
+                    else -> "index_durable"
+                }
+                it.imageRes = resources.getIdentifier(imageUrl, "drawable", context?.packageName)
+            }
             brandAdapter.setBrandsList(it)
         })
     }
