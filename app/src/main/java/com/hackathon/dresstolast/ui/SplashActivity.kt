@@ -34,7 +34,6 @@ class SplashActivity : AppCompatActivity() {
         lifecycle.coroutineScope.launch {
             delay(SPLASH_TIME)
 
-//            findNavController().navigate(R.id.action_splashActivity2_to_viewPagerFragment)
             val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)){
                 Log.d("DTL", "onboarding true")
                 Intent(this@SplashActivity, MainActivity::class.java)
