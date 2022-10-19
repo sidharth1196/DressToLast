@@ -10,5 +10,6 @@ data class DialogMember(
     var lambdaNo: () -> (Any) = {},
     var lambdaDismiss: () -> (Any) = {},
     var brand: Brand? = null,
-    var reviewSum: Int? = null
+    var reviewSum: Int? = null,
+    var reviewText: String? = null
 )

@@ -33,7 +33,8 @@ class ReviewQuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_review_questions, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_review_questions, container, false)
         parentActivity = activity as MainActivity
         viewModel.getAllQuestions()
         setupToolbar()
@@ -63,24 +64,45 @@ class ReviewQuestionsFragment : Fragment() {
         }
         adapter.setOnFinishClickListener {
             val reviewSum = viewModel.calculateDurabilityIndex(cameraViewModel.brand.value)
+            val dialogText: String
+            val reviewText: String
+            val btnYesText: String
+            if (viewModel.isUserLoggedIn()) {
+                dialogText = "You have just finished another durability review and your" +
+                        " answers will count towards the brand’s durability score. " +
+                        "Go to My account to receive your points!"
+                reviewText = "You have 70 points left to the next level."
+                btnYesText = "My account"
+            } else {
+                dialogText = "You have just finished another durability review and your " +
+                        "answers will count towards the brand’s durability score. " +
+                        "Sign in to receive your points and discount voucher!"
+                reviewText = "First durability points to get you started."
+                btnYesText = "Sign in"
+            }
             val dialogFragment: AlertDialogFragment = AlertDialogFragment.newInstance()
-            dialogFragment.setData(DialogMember(
-                title = "Congrats!",
-                body = "You have just finished another durability review and your answers " +
-                        "will count towards the brand’s durability score. " +
-                        "Go to My account to receive your points!",
-                cancellable = false,
-                buttonPositiveText = "Sign Up",
-                buttonNegativeText = "See Brand Details",
-                lambdaNo = {
-                    findNavController().navigate(R.id.action_reviewQuestionsFragment_to_homeFragment)
-                },
-                lambdaYes = {
-
-                },
-                brand = cameraViewModel.brand.value,
-                reviewSum = reviewSum
-            ))
+            dialogFragment.setData(
+                DialogMember(
+                    title = "Congrats!",
+                    body = dialogText,
+                    cancellable = false,
+                    buttonPositiveText = btnYesText,
+                    buttonNegativeText = "See Brand Details",
+                    lambdaNo = {
+                        findNavController().navigate(R.id.action_reviewQuestionsFragment_to_homeFragment)
+                    },
+                    lambdaYes = {
+                        if (viewModel.isUserLoggedIn()){
+                            findNavController().navigate(R.id.action_reviewQuestionsFragment_to_accountFragment)
+                        } else {
+                            findNavController().navigate(R.id.action_reviewQuestionsFragment_to_signInFragment)
+                        }
+                    },
+                    brand = cameraViewModel.brand.value,
+                    reviewSum = reviewSum,
+                    reviewText = reviewText
+                )
+            )
             dialogFragment.show(parentFragmentManager, AlertDialogFragment::class.java.simpleName)
         }
     }
