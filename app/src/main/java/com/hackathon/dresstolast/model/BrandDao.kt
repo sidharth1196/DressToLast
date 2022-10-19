@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface BrandDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertBrand(brand: Brand)
 
     @Query("SELECT * FROM Brand WHERE name =:name")

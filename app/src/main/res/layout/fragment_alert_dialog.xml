@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppinsregular"
-            android:hint="TextView"
+            android:text="First durability points to get you started."
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_points_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_points_title" />
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppinsregular"
-            android:hint="TextView"
+            android:text="10% on reccomended tailors."
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_discount_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_discount_title" />
@@ -229,6 +229,28 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_brand"
             app:layout_constraintTop_toBottomOf="@+id/tv_brand" />
+
+        <ImageView
+            android:id="@+id/iv_brand_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_index"
+            app:layout_constraintStart_toStartOf="@+id/iv_index"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            app:srcCompat="@drawable/index_durable" />
+
+        <TextView
+            android:id="@+id/tv_brand_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_brand_index"
+            app:layout_constraintStart_toStartOf="@+id/iv_brand_index"
+            app:layout_constraintTop_toBottomOf="@+id/iv_brand_index" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

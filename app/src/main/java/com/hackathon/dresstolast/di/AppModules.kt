@@ -6,6 +6,7 @@ import com.hackathon.dresstolast.model.AppDatabase
 import com.hackathon.dresstolast.model.BrandDao
 import com.hackathon.dresstolast.model.ReviewQuestionDao
 import com.hackathon.dresstolast.repository.DataRepository
+import com.hackathon.dresstolast.ui.viewModel.AlertDialogViewModel
 import com.hackathon.dresstolast.ui.viewModel.CameraViewModel
 import com.hackathon.dresstolast.ui.viewModel.LoadingViewModel
 import com.hackathon.dresstolast.ui.viewModel.MainViewModel
@@ -31,9 +32,10 @@ val appModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { CameraViewModel() }
+    viewModel { CameraViewModel(get()) }
     viewModel { LoadingViewModel(get()) }
     viewModel { MainViewModel(get()) }
+    viewModel { AlertDialogViewModel(get()) }
 }
 
 val repositoryModule = module {

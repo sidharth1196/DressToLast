@@ -83,7 +83,7 @@ class LoadingViewModel(
             "Weekday",
             "$$",
             468,
-            10.0
+            8.1
         ),
         Brand(
             2,
@@ -134,6 +134,13 @@ class LoadingViewModel(
             375,
             4.3
         ),
+        Brand(
+            9,
+            "Gymshark",
+            "$",
+            375,
+            7.3
+        )
 
     )
 }
