@@ -9,18 +9,21 @@ import com.hackathon.dresstolast.databinding.BrandListItemBinding
 import com.hackathon.dresstolast.model.Brand
 
 class BrandAdapter(): RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
-    private var brandsList : List<Brand> = listOf()
+    private var brandsList : List<Brand>? = listOf()
     inner class BrandHolder(private val binding: BrandListItemBinding): RecyclerView.ViewHolder(binding.root) {
         lateinit var brand: Brand
         fun bindToView(brandItem: Brand){
             brand = brandItem
+
             binding.tvBrandName.text = brand.name
             binding.tvPriceRange.text = brand.priceRange
             binding.tvReviews.text = "${brand.reviews} reviews"
-            binding.tvDurability.text = when(brand.index) {
-                1 -> "Durable"
-                else -> "Fragile"
+            binding.tvDurability.text = when {
+                brand.durabilityIndex < 5.1 -> "Fragile"
+                brand.durabilityIndex < 8.1 -> "Reliable"
+                else -> "Durable"
             }
+            brand.imageRes?.let { binding.ivDurability.setImageResource(it) }
         }
     }
 
@@ -31,15 +34,15 @@ class BrandAdapter(): RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
     }
 
     override fun onBindViewHolder(holder: BrandHolder, position: Int) {
-        val brandItem = brandsList[position]
-        holder.bindToView(brandItem)
+        val brandItem = brandsList?.get(position)
+        brandItem?.let { holder.bindToView(it) }
     }
 
     override fun getItemCount(): Int {
-        return brandsList.size
+        return brandsList?.size ?: 0
     }
 
-    fun setBrandsList(list: List<Brand>) {
+    fun setBrandsList(list: List<Brand>?) {
         brandsList = list
         notifyDataSetChanged()
     }

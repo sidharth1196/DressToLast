@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cameraResultFragment"
+            app:destination="@id/cameraResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
@@ -30,11 +33,19 @@
         tools:layout="@layout/fragment_camera_result" >
         <action
             android:id="@+id/action_cameraResultFragment_to_reviewQuestionsFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/reviewQuestionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/reviewQuestionsFragment"
         android:name="com.hackathon.dresstolast.ui.ReviewQuestionsFragment"
         android:label="fragment_review_questions"
-        tools:layout="@layout/fragment_review_questions" />
+        tools:layout="@layout/fragment_review_questions" >
+        <action
+            android:id="@+id/action_reviewQuestionsFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
