@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setLogo(R.drawable.app_logo)
         // window.statusBarColor = ContextCompat.getColor(this, R.color.app_background)
     }
 }

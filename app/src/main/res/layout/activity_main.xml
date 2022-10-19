@@ -47,6 +47,7 @@
                         android:layout_gravity="left"
                         android:hint="Dress To Last"
                         android:textSize="22sp"
+                        android:paddingLeft="8dp"
                         android:fontFamily="@font/notosansregular"
                         android:textColor="@android:color/black" />
 
