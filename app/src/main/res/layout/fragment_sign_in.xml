@@ -75,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
+                    android:inputType="textPassword"
                     android:fontFamily="@font/poppinsregular"
                     app:startIconDrawable="@drawable/ic_lock" />
             </com.google.android.material.textfield.TextInputLayout>
