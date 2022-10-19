@@ -37,7 +37,7 @@ class CameraResultFragment : Fragment() {
     }
 
     private fun initObservers() {
-        cameraViewModel.imageProxy.observe(viewLifecycleOwner, Observer { image ->
+        /*cameraViewModel.imageProxy.observe(viewLifecycleOwner, Observer { image ->
             val buffer = image.planes[0].buffer
             val bytes = ByteArray(buffer.capacity())
             buffer[bytes]
@@ -47,6 +47,9 @@ class CameraResultFragment : Fragment() {
             // Must run in UI thread
             binding.ivCapturedImage.rotation = image.imageInfo.rotationDegrees.toFloat()
             binding.ivCapturedImage.setImageBitmap(bitmapImage)
+        })*/
+        cameraViewModel.imageBitmap.observe(viewLifecycleOwner, Observer {
+            binding.ivCapturedImage.setImageBitmap(it)
         })
     }
 
