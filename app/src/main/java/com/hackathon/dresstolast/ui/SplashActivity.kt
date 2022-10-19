@@ -11,6 +11,7 @@ import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.model.Brand
 import com.hackathon.dresstolast.model.ReviewQuestion
 import com.hackathon.dresstolast.ui.viewModel.LoadingViewModel
+import com.hackathon.dresstolast.ui.onboarding.ViewPagerActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,6 +38,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycle.coroutineScope.launch {
             delay(SPLASH_TIME)
             fetchData()
+
             val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)){
                 Log.d("DTL", "onboarding true")
                 Intent(this@SplashActivity, MainActivity::class.java)
@@ -44,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
                 editor.putBoolean(KEY_ONBOARDING_INTRO, true).apply()
                 Log.d("DTL", "onboarding false")
                 // Replace with Onboarding intro activity
-                Intent(this@SplashActivity, MainActivity::class.java)
+                Intent(this@SplashActivity, ViewPagerActivity::class.java)
             }
             startActivity(intent)
             finish()
