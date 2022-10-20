@@ -1,7 +1,6 @@
 package com.hackathon.dresstolast.ui.viewModel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,25 +21,28 @@ class LoadingViewModel(
         }
     }
 
-    private fun insertBrands(brand: Brand) {
-        Log.d("DTL", "insert brand")
-        viewModelScope.launch(Dispatchers.IO) {
-            dataRepository.insertBrand(brand)
+    private fun insertBrands(brand: MutableList<Brand>) {
+        Log.d("DTL", "insert brand ${brand.size}")
+        viewModelScope.launch(Dispatchers.IO){
+            brand.forEach { it ->
+                Log.d("DTL", "insert ${it.name}")
+                dataRepository.insertBrand(it)
+            }
         }
     }
 
     fun fetchAllBrands() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val dbCollection = FirebaseFirestore.getInstance().collection("brands")
-            dbCollection.get()
-                .addOnSuccessListener { docs ->
-                    for (doc in docs){
-                        val brand = doc.toObject(Brand::class.java)
-                        insertBrands(brand)
-                        Log.d("DTL", brand.toString())
-                    }
-                }
-        }
+        val dbCollection = FirebaseFirestore.getInstance().collection("brands")
+        dbCollection.get()
+            .addOnSuccessListener { docs ->
+                /*for (doc in docs) {
+                    val brand = doc.toObject(Brand::class.java)
+                    insertBrands(brand)
+                    Log.d("DTL", brand.toString())
+                }*/
+                val brands = docs.toObjects(Brand::class.java)
+                insertBrands(brands)
+            }
     }
 
     val RQList = listOf(

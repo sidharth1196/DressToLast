@@ -13,5 +13,6 @@ data class Brand(
     var durabilityIndex: Double = 0.0,
     var commonIssues: ArrayList<String>? = null,
     var imageRes: Int? = null,
-    var docId: String = ""
+    var docId: String = "",
+    var brandLogo: Int? = null
 )
