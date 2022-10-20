@@ -42,6 +42,11 @@
             app:popUpTo="@id/cameraFragment"
             app:popUpToInclusive="true"
             app:destination="@id/reviewQuestionsFragment" />
+        <action
+            android:id="@+id/action_cameraResultFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/reviewQuestionsFragment"
