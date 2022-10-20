@@ -57,7 +57,7 @@ class CameraResultFragment : Fragment() {
             binding.ivCapturedImage.setImageBitmap(bitmapImage)
         })*/
         cameraViewModel.imageBitmap.observe(viewLifecycleOwner, Observer {
-            binding.ivCapturedImage.setImageBitmap(it)
+            // binding.ivCapturedImage.setImageBitmap(it)
             inputImage = InputImage.fromBitmap(it, 0)
             processImage()
         })

@@ -78,14 +78,17 @@ class AlertDialogFragment: DialogFragment() {
 
     private fun intiListeners() {
         binding.btnNegative.setOnClickListener {
-            if(dialogMember?.lambdaNo != {}) {
-                dialogMember?.lambdaNo?.let { run(it) }
-            }
-            dialog?.dismiss()
+
         }
         binding.btnPositive.setOnClickListener {
             if(dialogMember?.lambdaYes != {}) {
                 dialogMember?.lambdaYes?.let { run(it) }
+            }
+            dialog?.dismiss()
+        }
+        binding.imageView3.setOnClickListener {
+            if(dialogMember?.lambdaNo != {}) {
+                dialogMember?.lambdaNo?.let { run(it) }
             }
             dialog?.dismiss()
         }
