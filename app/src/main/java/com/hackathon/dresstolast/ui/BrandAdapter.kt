@@ -24,6 +24,7 @@ class BrandAdapter(): RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
                 else -> "Durable"
             }
             brand.imageRes?.let { binding.ivDurability.setImageResource(it) }
+            brand.brandLogo?.let { binding.ivBrandLogo.setImageResource(it) }
         }
     }
 

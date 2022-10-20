@@ -16,6 +16,7 @@ import com.hackathon.dresstolast.ui.onboarding.ViewPagerActivity
 
 class ThirdScreen : Fragment() {
     private lateinit var binding: FragmentThirdScreenBinding
+    lateinit var parentActivity: ViewPagerActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +26,9 @@ class ThirdScreen : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_third_screen, container, false)
         binding.button.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
+            parentActivity = activity as ViewPagerActivity
             startActivity(intent)
+            parentActivity.finish()
         }
         return binding.root
     }

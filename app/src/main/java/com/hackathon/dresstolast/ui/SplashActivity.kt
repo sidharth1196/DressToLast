@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
     /** Duration of wait  */
     companion object {
-        private const val SPLASH_TIME = 1500L
+        private const val SPLASH_TIME = 2500L
         private const val PREFERENCE_NAME = "myPref"
         private const val KEY_ONBOARDING_INTRO = "showOnboardingIntro"
     }
@@ -38,8 +38,8 @@ class SplashActivity : AppCompatActivity() {
         val sharedPreference = getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         lifecycle.coroutineScope.launch {
-            delay(SPLASH_TIME)
             fetchData()
+            delay(SPLASH_TIME)
 
             val intent = if (sharedPreference.getBoolean(KEY_ONBOARDING_INTRO, false)){
                 Log.d("DTL", "onboarding true")
