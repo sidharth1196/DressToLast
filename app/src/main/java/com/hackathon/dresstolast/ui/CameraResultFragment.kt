@@ -15,6 +15,7 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.hackathon.dresstolast.R
 import com.hackathon.dresstolast.databinding.FragmentCameraResultBinding
 import com.hackathon.dresstolast.ui.viewModel.CameraViewModel
+import com.hackathon.dresstolast.ui.widget.SimpleDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -85,6 +86,18 @@ class CameraResultFragment : Fragment() {
     private fun initListeners() {
         binding.btnYes.setOnClickListener {
             findNavController().navigate(R.id.action_cameraResultFragment_to_reviewQuestionsFragment)
+        }
+        binding.btnNo.setOnClickListener {
+            val simpleDialog: SimpleDialogFragment = SimpleDialogFragment.newInstance()
+            simpleDialog.setData(
+                title = "Thank you for wanting to review!",
+                body = "Unfortunately we cannot use your review as you haven’t follow the care instructions. \n" +
+                        "Tips! Following care instructions will make your product last longer.",
+                button = "OK"
+            ) {
+                findNavController().navigate(R.id.action_cameraResultFragment_to_homeFragment)
+            }
+            simpleDialog.show(parentFragmentManager, SimpleDialogFragment::class.java.simpleName)
         }
     }
 
