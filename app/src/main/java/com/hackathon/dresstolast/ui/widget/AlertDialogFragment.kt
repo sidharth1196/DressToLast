@@ -40,6 +40,7 @@ class AlertDialogFragment: DialogFragment() {
             binding.tvBody.text = body
             binding.btnNegative.text = buttonNegativeText
             binding.btnPositive.text = buttonPositiveText
+            binding.tvPointsBody.text = reviewText
             reviewSum?.let {
                 val durability = calculateDurability(it.toDouble())
                 binding.tvIndex.text = durability.capitalize()

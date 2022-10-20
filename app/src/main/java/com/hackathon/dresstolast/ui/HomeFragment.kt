@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         parentActivity = activity as MainActivity
+        parentActivity.setToolbarVisibility(View.VISIBLE)
         searchView = binding.svBrand
         initRecyclerView()
         setupToolbar()
@@ -91,6 +92,13 @@ class HomeFragment : Fragment() {
         binding.btnCreateReview.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(takePictureIntent, TAKE_PICTURE_REQ_CODE)
+        }
+        parentActivity.binding.ivAccount.setOnClickListener {
+            if (viewModel.isUserLoggedIn()) {
+                findNavController().navigate(R.id.action_homeFragment_to_acountFragment)
+            } else {
+                findNavController().navigate(R.id.action_homeFragment_to_signInFragment)
+            }
         }
     }
 

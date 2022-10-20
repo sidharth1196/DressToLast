@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "409213591034",
+    "project_id": "dress-to-last",
+    "storage_bucket": "dress-to-last.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409213591034:android:61358cde2d9896d91dd843",
+        "android_client_info": {
+          "package_name": "com.hackathon.dresstolast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409213591034-ll2llulgtafasfbs8jsff8psq704k42g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUmoInDZK1VpQ7M1OV4Uz3kADAxnX8BL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409213591034-ll2llulgtafasfbs8jsff8psq704k42g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

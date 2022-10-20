@@ -1,7 +1,10 @@
 package com.hackathon.dresstolast.ui.viewModel
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
 import com.hackathon.dresstolast.model.Answers
 import com.hackathon.dresstolast.model.Brand
 import com.hackathon.dresstolast.model.ReviewQuestion
@@ -19,9 +22,24 @@ class LoadingViewModel(
         }
     }
 
-    fun insertBrands(brand: Brand) {
+    private fun insertBrands(brand: Brand) {
+        Log.d("DTL", "insert brand")
         viewModelScope.launch(Dispatchers.IO) {
             dataRepository.insertBrand(brand)
+        }
+    }
+
+    fun fetchAllBrands() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val dbCollection = FirebaseFirestore.getInstance().collection("brands")
+            dbCollection.get()
+                .addOnSuccessListener { docs ->
+                    for (doc in docs){
+                        val brand = doc.toObject(Brand::class.java)
+                        insertBrands(brand)
+                        Log.d("DTL", brand.toString())
+                    }
+                }
         }
     }
 
